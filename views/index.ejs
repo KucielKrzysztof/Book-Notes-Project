@@ -1,0 +1,15 @@
+<%- include('partials/header.ejs'); -%>
+    <h1>hello world!</h1>
+    <% if(locals.books) { %>
+        <% for (let book of books) { %>
+            <p>
+                <%= book.author %>
+                    <%= book.title %>
+                        <%= book.rating %>
+                            <%= book.note %>
+                                <%= new Date(book.read_date).toISOString().split('T')[0] %>
+            </p>
+            <% } %>
+                <% } %>
+                    <button onClick="location.href='/addPage'">Add boook</button>
+                    <%- include('partials/footer.ejs'); -%>
