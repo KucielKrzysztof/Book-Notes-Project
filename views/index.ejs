@@ -3,10 +3,12 @@
     <% if(locals.books) { %>
         <% for (let book of books) { %>
             <p>
-                <%= book.author %>
-                    <%= book.title %>
-                        <%= book.rating %>
-                            <%= book.note %>
+
+                <img src="<%= book.url%>" alt="<%= book.isbn %>" loading="lazy"><br>
+                <%=book.author %><br>
+                    <%= book.title %><br>
+                        <%= book.rating %><br>
+                            <%= book.note %><br>
                                 <%= new Date(book.read_date).toISOString().split('T')[0] %>
             </p>
             <% } %>

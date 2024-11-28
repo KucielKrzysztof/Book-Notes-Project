@@ -20,15 +20,31 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static("public"));
 
 //handlers
+//main page
 app.get("/", async (req, res) => {
 	try {
 		const result = await db.query("SELECT * FROM books");
 		books = result.rows;
+		/* books.forEach((b) => {
+			b.coverUrl = `https://covers.openlibrary.org/b/isbn/${b.isbn}-M.jpg`;
+		}); */
 		console.log(result.rows);
 	} catch (error) {
 		console.error({ error: error.message });
 	}
 	res.render("index.ejs", { books: books });
+});
+//book page
+app.get("/book/:id", async (req, res) => {
+	try {
+		const bookId = parseInt(req.params.id);
+		const result = await db.query("SELECT * FROM books WHERE id=$1", [bookId]);
+		const book = result.rows;
+		console.log(result.rows);
+		res.render("book.ejs", { book: book[0] });
+	} catch (error) {
+		console.error({ error: error.message });
+	}
 });
 //add book page
 app.get("/addPage", async (req, res) => {
@@ -46,15 +62,19 @@ app.post("/add", async (req, res) => {
 		rating: req.body.rating,
 		note: req.body.note,
 		date: req.body.read_date,
+		isbn: req.body.isbn,
+		url: `https://covers.openlibrary.org/b/isbn/${req.body.isbn}-M.jpg`,
 	};
 	console.log(book);
 	try {
-		await db.query("INSERT INTO books (title, author, rating, note, read_date) VALUES ($1, $2, $3, $4, $5)", [
+		await db.query("INSERT INTO books (title, author, rating, note, read_date, isbn, url) VALUES ($1, $2, $3, $4, $5, $6, $7)", [
 			book.title,
 			book.author,
 			book.rating,
 			book.note,
 			book.date,
+			book.isbn,
+			book.url,
 		]);
 		res.redirect("/");
 	} catch (error) {

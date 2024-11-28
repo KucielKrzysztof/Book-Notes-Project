@@ -1,0 +1,15 @@
+<%- include('partials/header.ejs'); -%>
+
+    <% if(locals.book) { %>
+        <p>
+            <img src="<%= book.url %>" alt="<%= book.isbn %>" loading="lazy"><br>
+            <%= book.author %><br>
+                <%= book.title %><br>
+                    <%= book.rating %><br>
+                        <%= book.note %><br>
+                            <%= new Date(book.read_date).toISOString().split('T')[0] %>
+        </p>
+        <% } else { %>
+            <div>No book found</div>
+            <% }%>
+                <%- include('partials/footer.ejs'); -%>
