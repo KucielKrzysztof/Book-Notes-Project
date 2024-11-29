@@ -1,5 +1,5 @@
 > [!WARNING]\
-> This is not a real projet, it was made only for learning purposes.
+> This is not a real project, it was made only for learning purposes.
 
 # Book Notes
 
