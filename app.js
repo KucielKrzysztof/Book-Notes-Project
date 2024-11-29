@@ -34,7 +34,7 @@ app.get("/", async (req, res) => {
 	}
 	res.render("index.ejs", { books: books });
 });
-//book page
+//particular page
 app.get("/book/:id", async (req, res) => {
 	try {
 		const bookId = parseInt(req.params.id);
@@ -42,6 +42,32 @@ app.get("/book/:id", async (req, res) => {
 		const book = result.rows;
 		console.log(result.rows);
 		res.render("book.ejs", { book: book[0] });
+	} catch (error) {
+		console.error({ error: error.message });
+	}
+});
+//sorting
+app.get("/books", async (req, res) => {
+	const sort = req.query.sort;
+	let query = "SELECT * FROM books";
+	switch (sort) {
+		case "rating":
+			console.log("rating");
+			query += " ORDER BY rating DESC";
+			break;
+		case "title":
+			console.log("title");
+			query += " ORDER BY title ASC";
+			break;
+		case "date":
+			console.log("date");
+			query += " ORDER BY read_date DESC";
+			break;
+	}
+	try {
+		const result = await db.query(query);
+		const books = result.rows;
+		res.render("index.ejs", { books: books });
 	} catch (error) {
 		console.error({ error: error.message });
 	}

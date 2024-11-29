@@ -1,14 +1,40 @@
 <%- include('partials/header.ejs'); -%>
 
     <% if(locals.book) { %>
-        <p>
-            <img src="<%= book.url %>" alt="<%= book.isbn %>" loading="lazy"><br>
-            <%= book.author %><br>
-                <%= book.title %><br>
-                    <%= book.rating %><br>
-                        <%= book.note %><br>
-                            <%= new Date(book.read_date).toISOString().split('T')[0] %>
-        </p>
+
+        <div class="container col-xxl-8 px-4 py-5 mt-5">
+            <div class="row flex-row align-items-start g-1 py-5 ">
+                <div class="col-12 col-lg-4 d-flex flex-column align-items-center justify-content-start mb-5"
+                    style="max-height: 400px;">
+                    <img src="<%= book.url%>" class=" mx-lg-auto img-fluid" alt="<%= book.isbn %>" loading="lazy"
+                        style="min-height:200px; ">
+                    <h4 class=" fw-bold lh-1 my-2">
+                        <%= book.title %>
+                    </h4>
+
+                    <h6>
+                        <%=book.author %>
+                    </h6>
+                    <h6>ISBN: <%=book.isbn %>
+                    </h6>
+                    <h7>My rating: <%= book.rating %>/10</h7>
+                    <h8>Added on: <%= new Date(book.read_date).toISOString().split('T')[0] %>
+                    </h8>
+                </div>
+                <div class="col-lg-6">
+
+                    <p class="lead">
+                        <span style="font-weight: bold !important;">Complete note:</span><br>
+                        <%= book.note %>
+                    </p>
+                    <div class="d-grid gap-2 d-md-flex justify-content-center align-items-center">
+                        <button onClick="window.location.href='/'" type="button"
+                            class="btn btn-info text-white btn-lg px-4 me-md-2"> Back</button>
+
+                    </div>
+                </div>
+            </div>
+        </div>
         <% } else { %>
             <div>No book found</div>
             <% }%>

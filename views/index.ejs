@@ -7,9 +7,10 @@
                         <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown"
                             aria-expanded="false">Sort by:</a>
                         <ul class="dropdown-menu sort-menu">
-                            <li><a class="dropdown-item sort-item" href="#">Rating(From best to worst)</a></li>
-                            <li><a class="dropdown-item sort-item" href="#">Title(A-Z)</a></li>
-                            <li><a class="dropdown-item sort-item" href="#">Date(Newest)</a></li>
+                            <li><a class="dropdown-item sort-item" href="/books?sort=rating">Rating(From best to
+                                    worst)</a></li>
+                            <li><a class="dropdown-item sort-item" href="/books?sort=title">Title(A-Z)</a></li>
+                            <li><a class="dropdown-item sort-item" href="/books?sort=date">Date(Newest)</a></li>
                         </ul>
                     </li>
                 </ul>
@@ -18,41 +19,39 @@
         </div>
     </nav>
     <div class="container w-100">
-        <div class="b-example-divider"></div>
-        <div class="container col-xxl-8 px-4 py-5">
-            <div class="row flex-lg-row align-items-center g-1 py-5">
-                <div class="col-12 col-lg-4 d-flex align-items-center justify-content-center">
-                    <img src="https://covers.openlibrary.org/b/isbn/0307743659-M.jpg" class=" mx-lg-auto img-fluid"
-                        alt="Book Image" loading="lazy" style="min-height:200px">
-                </div>
-                <div class="col-lg-6">
-                    <h1 class=" fw-bold lh-1 mb-3">Responsive left-aligned hero with image</h1>
-                    <p class="lead">Quickly design and customize responsive mobile-first sites with Bootstrap, the
-                        world’s most popular front-end open source toolkit, featuring Sass variables and mixins,
-                        responsive grid system, extensive prebuilt components, and powerful JavaScript plugins.</p>
-                    <div class="d-grid gap-2 d-md-flex justify-content-md-start">
-                        <button type="button" class="btn btn-primary btn-lg px-4 me-md-2">Primary</button>
-                        <button type="button" class="btn btn-outline-secondary btn-lg px-4">Default</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <h1>hello world!</h1>
         <% if(locals.books) { %>
             <% for (let book of books) { %>
-                <p>
+                <div class="divider"></div>
+                <div class="container col-xxl-8 px-4 py-5">
+                    <div class="row flex-lg-row align-items-center g-1 py-5">
+                        <div class="col-12 col-lg-4 d-flex align-items-center justify-content-center">
+                            <img src="<%= book.url%>" class=" mx-lg-auto img-fluid" alt="<%= book.isbn %>"
+                                loading="lazy" style="min-height:200px">
+                        </div>
+                        <div class="col-lg-6">
+                            <h1 class=" fw-bold lh-1 mb-3">
+                                <%= book.title %>
+                            </h1>
+                            <h5>
+                                <%=book.author %> , My rating: <%= book.rating %>/10, Added on: <%= new
+                                            Date(book.read_date).toISOString().split('T')[0] %>
+                            </h5>
+                            <p class="lead">
+                                <span style="font-weight: bold !important;">Note:</span>
+                                <%= book.note.substring(0, 300) + "..." %>
+                            </p>
+                            <div class="d-grid gap-2 d-md-flex justify-content-md-start">
+                                <button onClick="location.href='/book/<%= book.id %>'" type="button"
+                                    class="btn btn-info text-white btn-lg px-4 me-md-2">Read
+                                    more</button>
 
-                    <img src="<%= book.url%>" alt="<%= book.isbn %>" loading="lazy"><br>
-                    <%=book.author %><br>
-                        <%= book.title %><br>
-                            <%= book.rating %><br>
-                                <%= book.note %><br>
-                                    <%= new Date(book.read_date).toISOString().split('T')[0] %><br>
-                                        <a href="">Przejdź do książki</a>
-                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
                 <% } %>
                     <% } %>
-                        <button onClick="location.href='/addPage'">Add boook</button>
+
     </div>
     <script>
         $(".home").addClass("bg-info")
