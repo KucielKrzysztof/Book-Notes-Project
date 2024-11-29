@@ -1,17 +1,75 @@
 <%- include('partials/header.ejs'); -%>
-    <h1>hello world!</h1>
-    <% if(locals.books) { %>
-        <% for (let book of books) { %>
-            <p>
+    <nav id="sorter" class="navbar navbar-expand navbar-dark bg-dark sorter " aria-label="Ninth navbar example">
+        <div class="container d-flex justify-content-center align-items-center flex-column">
+            <div class="collapse navbar-collapse " id="navbarsExample07XL">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0 ">
+                    <li class="nav-item dropdown ">
+                        <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown"
+                            aria-expanded="false">Sort by:</a>
+                        <ul class="dropdown-menu sort-menu">
+                            <li><a class="dropdown-item sort-item" href="#">Rating(From best to worst)</a></li>
+                            <li><a class="dropdown-item sort-item" href="#">Title(A-Z)</a></li>
+                            <li><a class="dropdown-item sort-item" href="#">Date(Newest)</a></li>
+                        </ul>
+                    </li>
+                </ul>
 
-                <img src="<%= book.url%>" alt="<%= book.isbn %>" loading="lazy"><br>
-                <%=book.author %><br>
-                    <%= book.title %><br>
-                        <%= book.rating %><br>
-                            <%= book.note %><br>
-                                <%= new Date(book.read_date).toISOString().split('T')[0] %>
-            </p>
-            <% } %>
+            </div>
+        </div>
+    </nav>
+    <div class="container w-100">
+        <div class="b-example-divider"></div>
+        <div class="container col-xxl-8 px-4 py-5">
+            <div class="row flex-lg-row align-items-center g-1 py-5">
+                <div class="col-12 col-lg-4 d-flex align-items-center justify-content-center">
+                    <img src="https://covers.openlibrary.org/b/isbn/0307743659-M.jpg" class=" mx-lg-auto img-fluid"
+                        alt="Book Image" loading="lazy" style="min-height:200px">
+                </div>
+                <div class="col-lg-6">
+                    <h1 class=" fw-bold lh-1 mb-3">Responsive left-aligned hero with image</h1>
+                    <p class="lead">Quickly design and customize responsive mobile-first sites with Bootstrap, the
+                        world’s most popular front-end open source toolkit, featuring Sass variables and mixins,
+                        responsive grid system, extensive prebuilt components, and powerful JavaScript plugins.</p>
+                    <div class="d-grid gap-2 d-md-flex justify-content-md-start">
+                        <button type="button" class="btn btn-primary btn-lg px-4 me-md-2">Primary</button>
+                        <button type="button" class="btn btn-outline-secondary btn-lg px-4">Default</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <h1>hello world!</h1>
+        <% if(locals.books) { %>
+            <% for (let book of books) { %>
+                <p>
+
+                    <img src="<%= book.url%>" alt="<%= book.isbn %>" loading="lazy"><br>
+                    <%=book.author %><br>
+                        <%= book.title %><br>
+                            <%= book.rating %><br>
+                                <%= book.note %><br>
+                                    <%= new Date(book.read_date).toISOString().split('T')[0] %><br>
+                                        <a href="">Przejdź do książki</a>
+                </p>
                 <% } %>
-                    <button onClick="location.href='/addPage'">Add boook</button>
-                    <%- include('partials/footer.ejs'); -%>
+                    <% } %>
+                        <button onClick="location.href='/addPage'">Add boook</button>
+    </div>
+    <script>
+        $(".home").addClass("bg-info")
+        //SEcond Navbar dynamic margin
+        document.addEventListener("DOMContentLoaded", () => {
+            const firstNavbar = document.getElementById("menu");
+            const secondNavbar = document.getElementById("sorter");
+
+            const adjustMargin = () => {
+                const navbarHeight = firstNavbar.offsetHeight; // Pobierz dynamiczną wysokość
+                secondNavbar.style.marginTop = `${navbarHeight}px`;
+            };
+
+            adjustMargin(); // Ustaw margines przy ładowaniu strony
+
+            // Ponowne dostosowanie przy zmianie rozmiaru okna (dla responsywności)
+            window.addEventListener("resize", adjustMargin);
+        });
+    </script>
+    <%- include('partials/footer.ejs'); -%>

@@ -1,3 +1,32 @@
 body {
-	background-color: red;
+	background-color: #1e2125;
+	color: white;
+}
+header {
+	background-color: rgb(34, 37, 41);
+	color: white;
+}
+.container {
+	min-width: 100%;
+}
+li > a {
+	color: white !important;
+}
+#sorter {
+	background-color: #1e2125 !important;
+	color: white;
+	margin-top: 73px;
+}
+.sort-menu {
+	background-color: rgb(34, 37, 41);
+	color: white;
+}
+.sort-item:hover {
+	color: black !important;
+}
+input,
+textarea {
+	background-color: rgb(34, 37, 41) !important;
+	color: white !important;
+	border: none !important;
 }
