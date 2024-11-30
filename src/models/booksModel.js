@@ -21,3 +21,24 @@ export async function addBook(book) {
 
 	await db.query(query, values);
 }
+
+//Sorting
+export async function sort(sort) {
+	let query = "SELECT * FROM books";
+	switch (sort) {
+		case "rating":
+			console.log("rating");
+			query += " ORDER BY rating DESC";
+			break;
+		case "title":
+			console.log("title");
+			query += " ORDER BY title ASC";
+			break;
+		case "date":
+			console.log("date");
+			query += " ORDER BY read_date DESC";
+			break;
+	}
+	const result = await db.query(query);
+	return result.rows;
+}

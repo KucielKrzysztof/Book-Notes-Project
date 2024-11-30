@@ -1,4 +1,4 @@
-import { getAllBooks, getBookById, addBook } from "../models/booksModel.js";
+import { getAllBooks, getBookById, addBook, sort } from "../models/booksModel.js";
 
 //Main page
 export async function renderBooksPage(req, res) {
@@ -22,7 +22,15 @@ export async function renderBookPage(req, res) {
 		res.status(500).send("Internal Server Error");
 	}
 }
-
+//Page for adding books
+export async function addBookPage(req, res) {
+	try {
+		res.render("addPage.ejs");
+	} catch (error) {
+		console.error(error);
+		res.status(500).send("Internal Server Error");
+	}
+}
 //Adding book
 export async function addNewBook(req, res) {
 	try {
@@ -43,3 +51,14 @@ export async function addNewBook(req, res) {
 	}
 }
 
+//Sorting
+export async function sortBooks(req, res) {
+	try {
+		const sortBy = req.query.sort;
+		const books = await sort(sortBy);
+		res.render("index.ejs", { books });
+	} catch (error) {
+		console.error(error);
+		res.status(500).send("Internal Server Error");
+	}
+}
