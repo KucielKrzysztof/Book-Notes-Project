@@ -133,3 +133,4 @@ dist
 __MACOSX/
 
 .ide
+.env
